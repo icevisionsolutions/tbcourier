@@ -572,17 +572,31 @@
     }
     var btn = form.querySelector('.tq-btn');
     btn.disabled = true; btn.textContent = 'Submitting…';
+
+    function showSuccess(){
+      form.reset(); dd.min = today;
+      wrap.style.display = 'none'; done.style.display = 'block';
+      if (done.scrollIntoView) done.scrollIntoView({block:'start'});
+    }
+    function showError(){
+      msg.className = 'tq-msg err';
+      msg.textContent = 'We couldn’t submit that just now. Please call or text (612) 206-7317, or email trodriguez@tbrcourier.com.';
+      if (msg.scrollIntoView) msg.scrollIntoView({block:'center'});
+      btn.disabled = false; btn.textContent = 'Submit quote request';
+    }
+
+    var done_ = false;
+    var timer = setTimeout(function(){ if(!done_){ done_ = true; showError(); } }, 12000);
+
     fetch('https://formsubmit.co/ajax/' + TO, {
       method:'POST', headers:{'Accept':'application/json'}, body:new FormData(form)
     }).then(function(r){ return r.json(); }).then(function(d){
-      if (d.success === false || d.success === 'false') throw 0;
-      form.reset(); dd.min = today;
-      wrap.style.display = 'none'; done.style.display = 'block';
+      if (done_) return; done_ = true; clearTimeout(timer);
+      if (d && (d.success === false || d.success === 'false')) { showError(); return; }
+      showSuccess();
     }).catch(function(){
-      msg.className = 'tq-msg err';
-      msg.textContent = 'Your request didn’t go through. Please try again, or call (612) 206-7317.';
-    }).finally(function(){
-      btn.disabled = false; btn.textContent = 'Submit quote request';
+      if (done_) return; done_ = true; clearTimeout(timer);
+      showError();
     });
   });
 })();

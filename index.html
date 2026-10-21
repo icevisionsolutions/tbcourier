@@ -358,11 +358,10 @@
   .tq-fab:focus-visible,.tq-btn:focus-visible,.tq-x:focus-visible{outline:3px solid #ffb020;outline-offset:2px}
 
   .tq-dlg{border:0;padding:0;border-radius:18px;width:min(720px,calc(100vw - 24px));
-    max-height:calc(100dvh - 32px);display:flex;flex-direction:column;overflow:hidden;
-    color:#12314f;background:#fff;box-shadow:0 30px 80px rgba(18,49,79,.35)}
-  .tq-dlg[open]{display:flex}
+    max-height:calc(100dvh - 32px);color:#12314f;background:#fff;
+    box-shadow:0 30px 80px rgba(18,49,79,.35)}
+  .tq-dlg[open]{display:flex;flex-direction:column;overflow:hidden;animation:tqIn .22s ease-out}
   .tq-dlg::backdrop{background:rgba(18,49,79,.55);backdrop-filter:blur(3px)}
-  .tq-dlg[open]{animation:tqIn .22s ease-out}
   @keyframes tqIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
   @media (prefers-reduced-motion:reduce){.tq-dlg[open]{animation:none}}
 
@@ -410,11 +409,13 @@
 
   @media (max-width:600px){
     .tq-grid{grid-template-columns:1fr}
-    .tq-dlg{width:calc(100vw - 16px);max-height:calc(100dvh - 16px);border-radius:14px}
+    .tq-dlg{width:calc(100vw - 16px);
+      max-height:calc(100dvh - 24px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));
+      margin:auto;border-radius:14px}
     .tq-head{padding:16px 18px 14px}
     .tq-head h2{font-size:20px}
     .tq-head p{font-size:14px}
-    .tq-body{padding:18px 18px 22px}
+    .tq-body{padding:18px 18px calc(22px + env(safe-area-inset-bottom,0px))}
     .tq-group{margin-bottom:18px}
     .tq-btn{width:100%}
     .tq-foot{gap:10px}

@@ -357,14 +357,16 @@
   .tq-fab:hover{background:#0a76c4}
   .tq-fab:focus-visible,.tq-btn:focus-visible,.tq-x:focus-visible{outline:3px solid #ffb020;outline-offset:2px}
 
-  .tq-dlg{border:0;padding:0;border-radius:18px;width:min(720px,calc(100vw - 24px));max-height:calc(100vh - 32px);
+  .tq-dlg{border:0;padding:0;border-radius:18px;width:min(720px,calc(100vw - 24px));
+    max-height:calc(100dvh - 32px);display:flex;flex-direction:column;overflow:hidden;
     color:#12314f;background:#fff;box-shadow:0 30px 80px rgba(18,49,79,.35)}
+  .tq-dlg[open]{display:flex}
   .tq-dlg::backdrop{background:rgba(18,49,79,.55);backdrop-filter:blur(3px)}
   .tq-dlg[open]{animation:tqIn .22s ease-out}
   @keyframes tqIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
   @media (prefers-reduced-motion:reduce){.tq-dlg[open]{animation:none}}
 
-  .tq-head{position:sticky;top:0;z-index:2;background:#fff;border-bottom:4px solid #ffb020;
+  .tq-head{flex:none;z-index:2;background:#fff;border-bottom:4px solid #ffb020;
     padding:22px 28px 18px;display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
   .tq-head h2{margin:0;font-size:24px;line-height:1.2;color:#12314f}
   .tq-head p{margin:6px 0 0;font-size:15px;line-height:1.5;color:#12314f;opacity:.75}
@@ -372,7 +374,7 @@
     color:#12314f;font-size:22px;line-height:1;cursor:pointer}
   .tq-x:hover{border-color:#0d8ce8;color:#0d8ce8}
 
-  .tq-body{padding:24px 28px 28px}
+  .tq-body{padding:24px 28px 28px;overflow-y:auto;-webkit-overflow-scrolling:touch;flex:1 1 auto;min-height:0}
   .tq-group{border:0;margin:0 0 22px;padding:0}
   .tq-group legend{font-weight:700;font-size:16px;color:#0d8ce8;padding:0;margin-bottom:12px}
   .tq-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 16px}
@@ -408,9 +410,15 @@
 
   @media (max-width:600px){
     .tq-grid{grid-template-columns:1fr}
-    .tq-head,.tq-body{padding-left:20px;padding-right:20px}
+    .tq-dlg{width:calc(100vw - 16px);max-height:calc(100dvh - 16px);border-radius:14px}
+    .tq-head{padding:16px 18px 14px}
+    .tq-head h2{font-size:20px}
+    .tq-head p{font-size:14px}
+    .tq-body{padding:18px 18px 22px}
+    .tq-group{margin-bottom:18px}
     .tq-btn{width:100%}
-    .tq-fab{right:14px;left:14px}
+    .tq-foot{gap:10px}
+    .tq-done{padding:36px 20px 40px}
   }
 </style>
 
